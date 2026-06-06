@@ -5,7 +5,7 @@
 using namespace std;
 
 void generateRandom(int arr[], int n);
-void bubbleSort(int arr[], int n);
+void insertionSort(int arr[], int n);
 bool binarySearch(int arr[], int kiri, int kanan, int target);
 
 int main() {
@@ -13,7 +13,7 @@ int main() {
     int n, x;
 
     cout << "Masukkan jumlah data dan target jumlah : ";
-        cin >> n >> x;
+    cin >> n >> x;
 
     if(n < 10) {
         cout << "Jumlah data minimal 10" << endl;
@@ -22,17 +22,26 @@ int main() {
 
     int arr[n];
     generateRandom(arr, n);
+
     cout << "\nData Random :" << endl;
     for(int i = 0; i < n; i++) {
         cout << arr[i] << " ";
     }
 
-    bubbleSort(arr, n);
+    insertionSort(arr, n);
+
+    cout << "\n\nData Setelah Diurutkan :" << endl;
+    for(int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+
     int jumlahPasangan = 0;
+
     for(int i = 0; i < n - 1; i++) {
 
-        if(i > 0 && arr[i] == arr[i - 1])
+        if(i > 0 && arr[i] == arr[i - 1]) {
             continue;
+        }
 
         int target = x - arr[i];
 
@@ -40,6 +49,7 @@ int main() {
             jumlahPasangan++;
         }
     }
+
     cout << "\n\nJumlah pasangan = "
          << jumlahPasangan << endl;
 
@@ -52,17 +62,16 @@ void generateRandom(int arr[], int n) {
     }
 }
 
-void bubbleSort(int arr[], int n) {
-    for(int i = 0; i < n - 1; i++) {
-        for(int j = 0; j < n - i - 1; j++) {
+void insertionSort(int arr[], int n) {
+    for(int i = 1; i < n; i++) {
+        int key = arr[i];
+        int j = i - 1;
 
-            if(arr[j] > arr[j + 1]) {
-
-                int temp = arr[j];
-                arr[j] = arr[j + 1];
-                arr[j + 1] = temp;
-            }
+        while(j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
         }
+        arr[j + 1] = key;
     }
 }
 
